@@ -1,0 +1,29 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Secrets / local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local vaults and private data
+vault/
+private/
+personal-data/
+client-data/
+
+# Runtime / generated data
+logs/
+.tmp/
+.cache/
+node_modules/
+__pycache__/
+*.pyc
+
+# Local model data
+models/
