@@ -1,184 +1,393 @@
 # Second Brain Portal — UI & Product Design
 
-## Purpose
+## Product thesis
 
-The Portal is the human-facing interface for Conor's Second Brain. It sits above the local Markdown/Obsidian knowledge base and should feel like a personal information operating system rather than a prettier file browser.
+The Portal is the **capture-and-work interface** for Conor's Second Brain.
 
-**Core principle:** Keep the knowledge portable. The Portal is an interface, not the source of truth.
+It is not a prettier file browser and it is not the source of truth. Markdown remains the durable knowledge layer; the Portal makes capturing, organizing, retrieving, and acting on that knowledge effortless.
 
-## Design direction
+### Primary UX principle
 
-**Concept: Personal OS / Command Center**
+> **Think first. Organize later.**
 
-The first version should combine four ideas:
+The user should never have to stop a live thought or sales conversation to decide which folder, tag, filename, or note type something belongs to.
 
-1. **Personal OS** — a calm home screen showing what matters now.
-2. **Universal Capture** — one obvious place to put thoughts, documents, links, and notes without deciding where they belong.
-3. **Knowledge Explorer** — browse related concepts, notes, sources, projects, and entities without relying on folder navigation alone.
-4. **Agent Workspace** — invoke specialized agents against the shared knowledge base as they are added.
+---
 
-The visual style should be modern, minimal, information-dense without feeling cramped, and suitable for desktop first with responsive behavior. Avoid the visual language of a generic admin dashboard.
+# 1. The most important workflow: Capture
 
-## Proposed navigation
+The Capture experience is the highest-priority feature in the entire Portal.
 
-- **Home** — live overview / Today
-- **Capture** — universal input
-- **Inbox** — unprocessed material and Librarian queue
-- **Knowledge** — browse and search the knowledge base
-- **Projects** — active work
-- **Connections** — related concepts/entities/notes
-- **Agents** — Librarian first; specialists later
-- **Settings** — local configuration, integrations, system status
+It must be extremely fast and low-friction for three situations:
 
-## Home screen
+1. **Live general note-taking**
+2. **Live account/sales-call note-taking** for either N-able or Mortgage
+3. **Pairing typed notes with Kindle Scribe handwritten notes**
 
-The Home screen should answer four questions immediately:
+The Portal should feel closer to a simple scratchpad/field notebook than a database form.
 
-- What is new?
-- What am I working on?
-- What needs attention?
-- What can I do next?
+## Capture home
 
-### Suggested composition
+The first screen should offer three obvious modes:
 
 ```text
-┌─────────────────────────────────────────────────────────────┐
-│  SECOND BRAIN                                  Search  ⌘K  │
-│                                                             │
-│  Good morning, Conor                                       │
-│                                                             │
-│  ┌───────────────────────────────────────────────────────┐  │
-│  │ What are you thinking about?                    +     │  │
-│  └───────────────────────────────────────────────────────┘  │
-│                                                             │
-│  + Note      + Document      + Kindle      + URL            │
-│                                                             │
-│  ─────────────────────────────────────────────────────────  │
-│                                                             │
-│  TODAY                                                     │
-│  ┌───────────────┐ ┌───────────────┐ ┌─────────────────┐  │
-│  │ Inbox         │ │ Active        │ │ Recent          │  │
-│  │ 12            │ │ Projects  4   │ │ 8 items         │  │
-│  └───────────────┘ └───────────────┘ └─────────────────┘  │
-│                                                             │
-│  RECENT KNOWLEDGE                                           │
-│  CMMC positioning · Sales call · Kindle note · MDR research │
-│                                                             │
-│  ACTIVE PROJECTS                                            │
-│  Second Brain · Mortgage Dashboard · CMMC · N-able          │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────┐
+│                                                     │
+│                    SECOND BRAIN                     │
+│                                                     │
+│              What are you working on?              │
+│                                                     │
+│     ┌────────────┐  ┌────────────┐  ┌────────────┐ │
+│     │  + QUICK   │  │  + SALES   │  │  + KINDLE  │ │
+│     │    NOTE    │  │    CALL    │  │    PAIR    │ │
+│     └────────────┘  └────────────┘  └────────────┘ │
+│                                                     │
+│              or just start typing...               │
+│                                                     │
+└─────────────────────────────────────────────────────┘
 ```
 
-The exact layout can evolve. The important hierarchy is **capture → today → recent → active work**.
+Do not force a user to navigate through the sidebar before capturing.
 
-## Universal Capture
+---
 
-This is the signature interaction.
+# 2. Quick Note
 
-The user should be able to enter a thought such as:
+For thoughts, ideas, observations, reminders, learning, or anything that does not need a structured account record.
 
-> Internal IT teams seem more concerned with accountability around MDR than the underlying technology.
+The UI should be essentially:
 
-and press Enter.
+```text
+┌─────────────────────────────────────────────────────┐
+│ QUICK NOTE                                           │
+│                                                     │
+│                                                     │
+│  Start typing...                                    │
+│                                                     │
+│                                                     │
+│                                                     │
+│                                                     │
+│                                                     │
+│                    [ Save ]                         │
+└─────────────────────────────────────────────────────┘
+```
 
-The Portal should save the original capture to the Inbox and let the Librarian classify it later.
+Optional metadata can be suggested after capture by the Librarian. The user should not have to fill out metadata to save a note.
 
-The user should not have to choose a folder first.
+Keyboard shortcut / mobile quick action should eventually open Quick Note instantly.
 
-Optional capture types:
+---
 
-- Thought
-- Note
-- Document
-- URL
-- Kindle import
-- Transcript
+# 3. Live Sales Call mode
 
-## Librarian status
+This is a **first-class feature**, not merely a template.
 
-The UI should make automation visible rather than magical.
+The user needs to be able to take notes while actively speaking with an account.
+
+The interaction should be optimized for speed, minimal clicks, and large readable controls.
+
+## Starting a call
+
+```text
+START SALES CALL
+
+[ N-ABLE ]       [ MORTGAGE ]
+
+Account / Client
+[ __________________________ ]
+
+Contact
+[ __________________________ ]
+
+Call purpose (optional)
+[ __________________________ ]
+
+                    [ START CALL ]
+```
+
+The system creates a local working note immediately. It should NOT wait for the call to end.
+
+## During the call
+
+```text
+┌─────────────────────────────────────────────────────┐
+│ ● LIVE CALL                          32:14           │
+│ ABC TECHNOLOGY — N-ABLE                             │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ QUICK CAPTURE                                       │
+│ ┌─────────────────────────────────────────────────┐ │
+│ │ Type a thought...                               │ │
+│ └─────────────────────────────────────────────────┘ │
+│                                                     │
+│ [Pain] [Objection] [Need] [Competitor] [Next Step] │
+│                                                     │
+│ NOTES                                               │
+│                                                     │
+│ • Currently using SentinelOne                       │
+│ • Concerned about MDR cost                          │
+│ • Compliance becoming more important                │
+│                                                     │
+│ NEXT STEPS                                          │
+│ ☐ Send MDR comparison                               │
+│ ☐ Follow up Tuesday                                 │
+│                                                     │
+│ [ PAUSE ]                       [ END CALL ]        │
+└─────────────────────────────────────────────────────┘
+```
+
+The quick buttons are optional accelerators, not mandatory fields. The user must always be able to simply type.
+
+### Call note philosophy
+
+The system should capture **raw observations during the call**.
+
+After the call, the Librarian/AI can organize the note into:
+
+- Account
+- Contact
+- Business context
+- Pain points
+- Needs
+- Objections
+- Competitors
+- Products discussed
+- Decisions
+- Follow-up tasks
+- Open questions
+- Key quotes/observations
+
+The raw live notes must remain recoverable.
+
+---
+
+# 4. N-able vs Mortgage
+
+Sales capture should share the same underlying interaction model while allowing different fields and downstream organization.
+
+### N-able
+
+Useful optional prompts:
+
+- Company
+- Contact
+- Employee count
+- Current stack
+- RMM
+- EDR
+- Backup
+- MDR/SOC
+- Compliance
+- Pain points
+- Budget
+- Timeline
+- Competitors
+- Next step
+
+### Mortgage
+
+Useful optional prompts:
+
+- Client(s)
+- Purchase / refinance / renewal / other
+- Property
+- Employment/income context
+- Down payment
+- Credit considerations
+- Existing mortgage
+- Objectives
+- Documents outstanding
+- Lender considerations
+- Next step
+
+These are **capture aids**, not rigid forms. The Librarian should infer and structure information later where possible.
+
+---
+
+# 5. Kindle Pairing
+
+This is another signature workflow.
+
+The user should be able to pair handwritten Kindle Scribe notes with an existing digital note, account, project, or sales call.
 
 Example:
 
 ```text
-INBOX
+KINDLE PAIR
 
-12 waiting
+Recent Kindle imports
 
-┌───────────────────────────────────────────────────────┐
-│ CMMC Sales Guide.pdf                                  │
-│ Processing…                                           │
-│                                                       │
-│ Librarian                                             │
-│ Category: N-able / CMMC                               │
-│ Tags: #CMMC #MDR #compliance                          │
-│ Confidence: 94%                                       │
-│                                                       │
-│ [Approve] [Review]                                    │
-└───────────────────────────────────────────────────────┘
+○  Aug 30 — Sales notes — handwritten
+○  Aug 29 — N-able meeting
+○  Aug 28 — Mortgage ideas
+
+Pair with:
+
+○  ABC Technology — Aug 30 call
+○  Project: N-able MDR
+○  Create new note
+
+                [ PAIR ]
 ```
 
-For high-confidence, non-destructive classification, approval can eventually be automatic. Ambiguous routing should remain reviewable.
+When paired, the system should preserve the Kindle source and associate it with the digital record.
 
-## Knowledge Explorer
-
-A knowledge item should not simply open as a file.
-
-Example: opening `MDR` could show:
-
-- Summary / note content
-- Source documents
-- Related concepts
-- Related entities
-- Related projects
-- Recent activity
-- Backlinks / wikilinks
-- Agent actions available
-
-Example relationship view:
+Conceptually:
 
 ```text
-                    MDR
-                     │
-          ┌──────────┼──────────┐
-          ↓          ↓          ↓
-       Adlumin   SentinelOne   CMMC
-          │          │          │
-          └──────┬───┘          │
-                 ↓              ↓
-            Sales Calls    Compliance
+Kindle handwritten note
+          ↓
+      OCR / import
+          ↓
+      ORIGINAL SOURCE
+          │
+          ├──────────────┐
+          ↓              ↓
+   Digital transcript   Linked account/call
+          │              │
+          └──────┬───────┘
+                 ↓
+             Librarian
+                 ↓
+       Organized knowledge
 ```
 
-The graph is a supporting visualization, not the primary navigation mechanism. Lists and search must remain fast and useful.
+The handwritten original should remain available for reference.
 
-## Search
+---
 
-Search should be globally accessible via `⌘/Ctrl + K` or a persistent search field.
+# 6. Capture should work without classification
 
-Initial implementation should favor simple local full-text search over introducing a vector database prematurely.
+A critical rule:
 
-Later, semantic search/RAG can be added when there is a demonstrated need.
+**Never make the user classify information before saving it.**
 
-Search results should show:
+For example, during a sales call, Conor should not have to choose:
 
-- Title
-- Type
-- Category
-- Short excerpt
-- Date
-- Source
-- Related tags
+`N-able > Sales > Accounts > ABC > Calls > 2026 > August`
 
-## Agent Workspace
+He should simply write:
 
-The Agents page should initially contain only the Librarian.
+> They're happy with SentinelOne but don't feel like they're getting enough visibility.
 
-Future cards:
+The system captures it immediately.
+
+The Librarian handles organization afterward.
+
+---
+
+# 7. Post-capture processing
+
+After a live session ends, the Portal should offer a lightweight review state:
 
 ```text
+CALL COMPLETE
+
+ABC Technology — N-able
+
+Captured:
+• 18 notes
+• 3 pain points
+• 2 objections
+• 4 follow-ups
+• 1 competitor
+• Kindle note attached
+
+LIBRARIAN
+✓ Classified
+✓ Linked to account
+✓ Linked to N-able / MDR
+✓ Follow-ups identified
+
+[ Review ]     [ Done ]
+```
+
+The AI should not silently turn raw notes into a polished account of the conversation without retaining the source capture.
+
+---
+
+# 8. Home / Today
+
+Home is a **live command center**, not another note.
+
+It should answer:
+
+- What needs my attention?
+- What did I capture recently?
+- What calls/accounts am I working on?
+- What is the Librarian processing?
+- What projects are active?
+
+Suggested structure:
+
+```text
+┌───────────────────────────────────────────────────────────┐
+│ 🧠 SECOND BRAIN                            Search   +      │
+│                                                           │
+│ Good afternoon, Conor                                    │
+│                                                           │
+│ ┌───────────────────────────────────────────────────────┐ │
+│ │ What do you want to capture?                          │ │
+│ └───────────────────────────────────────────────────────┘ │
+│                                                           │
+│ [ Quick Note ] [ Sales Call ] [ Kindle ]                  │
+│                                                           │
+│ TODAY                                                     │
+│ ┌────────────┐ ┌────────────┐ ┌────────────────────────┐ │
+│ │ Inbox      │ │ Live/Recent│ │ Follow-ups             │ │
+│ │ 12         │ │ Calls 3    │ │ 7                      │ │
+│ └────────────┘ └────────────┘ └────────────────────────┘ │
+│                                                           │
+│ RECENT CAPTURE                                            │
+│ • ABC Technology — N-able call                           │
+│ • Kindle — MDR notes                                      │
+│ • Mortgage client thought                                 │
+│                                                           │
+│ ACTIVE WORK                                               │
+│ • Second Brain                                            │
+│ • Mortgage Dashboard                                      │
+│ • N-able / MDR                                            │
+└───────────────────────────────────────────────────────────┘
+```
+
+---
+
+# 9. Knowledge Explorer
+
+Once captured information is organized, the Portal can provide richer exploration.
+
+A knowledge item can show:
+
+- Content
+- Original source
+- Related notes
+- Related accounts
+- Projects
+- Concepts
+- Tags
+- Backlinks
+- Timeline
+- Agent actions
+
+Graph visualization can exist as a secondary view, but should never be the primary way to navigate knowledge.
+
+---
+
+# 10. Agent Workspace
+
+Initially:
+
+```text
+AGENTS
+
 🧠 Librarian
 Organize and connect my knowledge
 
+```
+
+Later:
+
+```text
 💼 Sales Coach
 Analyze my calls and improve my selling
 
@@ -192,81 +401,190 @@ Create from what I already know
 Work with mortgage knowledge
 ```
 
-Each agent operates against the shared knowledge base rather than creating a separate silo.
+The Sales Coach should eventually be able to query the structured sales-call history created by the capture system.
 
-## Agent interaction model
+Example:
 
-Avoid making every agent a generic chat window.
+> Analyze my last 20 N-able calls and identify the objections I am weakest at handling.
 
-Prefer task-oriented prompts:
+The agent should cite/link the underlying call notes it used.
 
-- Analyze these 10 calls
-- Find everything about CMMC
-- Summarize what I know about MDR
-- Draft a document using these sources
-- Show me unresolved questions
+---
 
-The system should show which sources were used and link back to the underlying Markdown notes.
+# 11. Navigation
 
-## Architecture boundary
+Recommended primary navigation:
 
-The Portal should communicate with the local system through explicit interfaces.
+- **Home**
+- **Capture**
+- **Inbox**
+- **Accounts**
+- **Knowledge**
+- **Projects**
+- **Agents**
+
+Accounts deserve their own first-class area because live sales/account capture is one of the system's primary workflows.
+
+Potential account structure:
 
 ```text
-Portal
-  ↓
-Local application/API
-  ↓
-Markdown vault / local indexes
-  ↓
-n8n + Librarian + local model
+ACCOUNTS
+├── N-able
+│   ├── ABC Technology
+│   ├── XYZ MSP
+│   └── ...
+│
+└── Mortgage
+    ├── Client / Household
+    ├── Client / Household
+    └── ...
 ```
 
-The Portal must not become a second database that independently stores the user's knowledge.
+The underlying Markdown model should remain flexible enough that accounts are notes/entities rather than a separate database silo.
 
-## Privacy requirements
+---
 
-- No personal knowledge in the GitHub software repository.
-- No credentials in source code.
-- Prefer local network/local process communication.
-- Cloud AI should be an explicit, optional path rather than the default.
-- Destructive operations require explicit confirmation.
-- Never automatically delete knowledge.
+# 12. Technical architecture
 
-## Technical direction
+```text
+             CAPTURE PORTAL
+                  │
+       ┌──────────┼──────────┐
+       ↓          ↓          ↓
+    Quick      Sales       Kindle
+     Note       Call       Pairing
+       │          │          │
+       └──────────┼──────────┘
+                  ↓
+               INBOX
+                  ↓
+          n8n / local workflow
+                  ↓
+             Local Llama
+                  ↓
+             LIBRARIAN
+                  ↓
+         Markdown / Obsidian
+                  │
+       ┌──────────┼──────────┐
+       ↓          ↓          ↓
+    Search     Dashboard   Agents
+```
 
-The eventual frontend can be implemented as a local web application, likely using Next.js + TypeScript, with a thin local backend/API where required.
+The Portal should communicate with a local service/API. It should not directly become a second permanent database.
 
-Do not build the entire production stack immediately.
+For live capture, the local working state may temporarily exist in an application data structure, but the durable record should ultimately be Markdown/local files.
 
-### Prototype first
+---
 
-Phase 1 of the Portal should use mock data and prove:
+# 13. Offline / resilience requirement
 
-1. Home screen
-2. Universal capture
-3. Inbox
-4. Knowledge browsing
-5. Search interaction
-6. Agent page
-7. Basic note/detail view
+Because live sales calls are a primary use case, capture must be resilient.
 
-Only after the UI feels right should it be connected to the real vault.
+A dropped network connection, temporary AI failure, or n8n failure must **not lose typed notes**.
 
-## Non-goals for v1
+The capture workflow should save locally first and process asynchronously.
 
-- No multi-user SaaS architecture
-- No cloud database
-- No complex vector database
-- No autonomous multi-agent swarm
-- No automatic deletion
-- No elaborate graph-first navigation
-- No attempt to replace every Obsidian feature
+```text
+TYPE NOTE
+   ↓
+LOCAL SAVE ✓
+   ↓
+Continue call
+   ↓
+Async processing
+   ↓
+Librarian
+```
 
-## Design test
+AI processing must never be on the critical path for saving a note.
 
-A successful first prototype should make the user feel:
+---
 
-> "I don't need to know where this belongs. I just put it here, and my system takes care of the rest."
+# 14. Privacy
 
-That is the experience the Portal should optimize for.
+Sales and mortgage information may be sensitive.
+
+The Portal should default to local processing/storage.
+
+Cloud AI should be an explicit opt-in path, not an invisible dependency.
+
+Never commit actual account/client information to the GitHub software repository.
+
+Never place credentials or API keys in source code.
+
+---
+
+# 15. V1 prototype
+
+The first visual prototype should prioritize the actual daily workflow over advanced knowledge-graph features.
+
+### V1 must demonstrate:
+
+1. Very fast Quick Note capture
+2. Start/stop Live Sales Call
+3. N-able vs Mortgage call context
+4. Live note stream
+5. Quick capture buttons for sales concepts
+6. Local draft persistence concept
+7. End-of-call review
+8. Kindle pairing concept using mock imports
+9. Inbox
+10. Account detail page
+11. Basic Knowledge view
+12. Librarian status
+13. Agent page with Librarian only
+
+### V1 should NOT yet require:
+
+- Real AI
+- Real n8n integration
+- Real Kindle integration
+- Vector database
+- Cloud database
+- Multi-user support
+- Autonomous agents
+- Complex graph algorithms
+
+Use realistic mock data to make the workflow feel real before wiring up infrastructure.
+
+---
+
+# 16. Design language
+
+The Portal should feel like a **premium personal tool**, not an enterprise CRM.
+
+Desired qualities:
+
+- Calm
+- Minimal
+- Fast
+- Highly legible
+- Modern
+- Slightly futuristic without being gimmicky
+- Excellent keyboard interaction
+- Excellent touch interaction
+- Information-rich without clutter
+
+Avoid:
+
+- Generic admin-dashboard styling
+- Excessive cards
+- Giant colorful charts
+- Decorative AI animations
+- Making the graph the center of the experience
+- Forms that feel like CRM data entry
+
+The most important visual element is the **capture surface**.
+
+---
+
+# 17. North-star experience
+
+A successful Portal should make this possible:
+
+> Conor is on a sales call. He opens the Portal, taps **Start Call**, selects N-able, and immediately starts typing. He never thinks about folders, tags, filenames, or databases. After the call, he attaches the handwritten Kindle notes from the same meeting. The system preserves both sources, organizes them locally, links them to the account, identifies follow-ups, and makes the information available to future agents.
+
+That is the core product.
+
+Everything else is secondary.
