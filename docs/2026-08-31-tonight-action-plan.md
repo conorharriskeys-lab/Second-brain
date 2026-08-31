@@ -116,11 +116,14 @@ Vector databases, RAG, MCP, multi-agent systems, authentication, cloud hosting, 
 
 ## Definition of done for tonight
 
-- [ ] Local vault exists outside this repo; Obsidian opens it.
-- [ ] Portal runs locally with no build step beyond starting the process.
-- [ ] Quick Note, N-able Call, and Mortgage Call each save a correct Markdown file to `Inbox/`.
-- [ ] A killed server mid-note does not destroy what was typed.
-- [ ] Tests A, B, and C from the sprint doc all pass.
-- [ ] Results recorded in a follow-up doc in this repo (behavior only, no captured content).
+- [x] Local vault exists outside this repo; Obsidian opens it.
+- [x] Portal runs locally with no build step beyond starting the process.
+- [x] Quick Note saves a correct Markdown file to `Inbox/` — confirmed live by Conor.
+- [ ] N-able Call and Mortgage Call saves confirmed live (verified in automated testing against a scratch vault; not yet exercised in the real app by Conor).
+- [ ] Loss-protection (killed server mid-note) confirmed live by Conor.
+- [ ] Tests A, B, and C from the sprint doc all pass — A done; B and C outstanding.
+- [x] Results recorded in a follow-up doc in this repo — see `docs/2026-08-31-test-notes.md`.
+
+See `docs/2026-08-31-test-notes.md` for the detailed results and what's still open.
 
 Measure success the same way the sprint doc does: not by lines of code, but by whether you'd actually use this to capture a real note tonight.
