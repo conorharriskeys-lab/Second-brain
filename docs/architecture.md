@@ -56,6 +56,8 @@ Do not make a vector database, SQL database, or SaaS application the canonical k
 
 The system is designed around a local/private operating model. Client and mortgage information is especially sensitive and should remain segregated from the general second brain unless a future architecture explicitly provides appropriate controls.
 
+**v0.1 implementation of this control (Aug 31, 2026):** the Portal (`dashboard/`) writes Mortgage Call captures into a separate vault from Quick Note and N-able Call, controlled by `SECOND_BRAIN_VAULT_PATH_MORTGAGE` — the two vaults can then be synced/stored independently (e.g. different OneDrive folders or providers). Routing is by capture mode, not a user choice, keeping with the "never make the user classify before saving" rule. If that env var is unset, mortgage captures fall back to the general vault rather than failing.
+
 ## Future extensibility
 
 The architecture should support:

@@ -354,8 +354,10 @@
       const res = await fetch("/api/health");
       const data = await res.json();
       if (data.vault_configured) {
-        pill.textContent = "vault connected";
-        pill.className = "status-pill ok";
+        pill.textContent = data.mortgage_vault_configured
+          ? "vault connected · mortgage vault segregated"
+          : "vault connected · mortgage vault not set";
+        pill.className = data.mortgage_vault_configured ? "status-pill ok" : "status-pill warn";
       } else {
         pill.textContent = "vault not configured";
         pill.className = "status-pill error";

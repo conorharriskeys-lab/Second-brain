@@ -36,6 +36,7 @@ body {
   padding: 4px 10px;
 }
 .status-pill.ok { color: var(--good); border-color: var(--good); }
+.status-pill.warn { color: #e0b25c; border-color: #e0b25c; }
 .status-pill.error { color: var(--pain); border-color: var(--pain); }
 
 #app {

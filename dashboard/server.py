@@ -40,6 +40,13 @@ MODES = {
     "mortgage-call": "sales-call",
 }
 
+# Per docs/architecture.md: mortgage/client information stays segregated
+# from the general second brain. Modes not listed here fall back to
+# SECOND_BRAIN_VAULT_PATH. The user never chooses this — the mode does.
+MODE_VAULT_ENV_OVERRIDE = {
+    "mortgage-call": "SECOND_BRAIN_VAULT_PATH_MORTGAGE",
+}
+
 
 def slugify(text: str, fallback: str) -> str:
     text = unicodedata.normalize("NFKD", text or "").encode("ascii", "ignore").decode()
@@ -47,13 +54,21 @@ def slugify(text: str, fallback: str) -> str:
     return text or fallback
 
 
-def inbox_dir() -> Path:
+def vault_path_for(mode: str) -> str:
+    override_var = MODE_VAULT_ENV_OVERRIDE.get(mode)
+    if override_var and ENV.get(override_var):
+        return ENV[override_var]
     if not VAULT_PATH:
+        needed = f"SECOND_BRAIN_VAULT_PATH (or {override_var})" if override_var else "SECOND_BRAIN_VAULT_PATH"
         raise RuntimeError(
-            "SECOND_BRAIN_VAULT_PATH is not set. Copy dashboard/.env.example to "
-            "dashboard/.env and point it at your local vault folder."
+            f"{needed} is not set. Copy dashboard/.env.example to dashboard/.env "
+            "and point it at your local vault folder."
         )
-    inbox = Path(VAULT_PATH).expanduser() / "Inbox"
+    return VAULT_PATH
+
+
+def inbox_dir(mode: str) -> Path:
+    inbox = Path(vault_path_for(mode)).expanduser() / "Inbox"
     inbox.mkdir(parents=True, exist_ok=True)
     return inbox
 
@@ -96,7 +111,14 @@ class CaptureHandler(BaseHTTPRequestHandler):
         if self.path == "/":
             self.path = "/index.html"
         if self.path == "/api/health":
-            self._send_json(200, {"status": "ok", "vault_configured": bool(VAULT_PATH)})
+            self._send_json(
+                200,
+                {
+                    "status": "ok",
+                    "vault_configured": bool(VAULT_PATH),
+                    "mortgage_vault_configured": bool(ENV.get("SECOND_BRAIN_VAULT_PATH_MORTGAGE")),
+                },
+            )
             return
         self._serve_static()
 
@@ -162,7 +184,7 @@ class CaptureHandler(BaseHTTPRequestHandler):
         heading = title or mode.replace("-", " ").title()
         content = frontmatter + f"# {heading}\n\n{body}\n"
 
-        dest = inbox_dir() / filename
+        dest = inbox_dir(mode) / filename
         # Never overwrite an existing capture.
         counter = 2
         while dest.exists():
@@ -178,6 +200,9 @@ def main():
         print("Copy dashboard/.env.example to dashboard/.env and set it before capturing.")
     else:
         print(f"Vault Inbox: {Path(VAULT_PATH).expanduser() / 'Inbox'}")
+    mortgage_vault = ENV.get("SECOND_BRAIN_VAULT_PATH_MORTGAGE")
+    if mortgage_vault:
+        print(f"Mortgage vault Inbox (segregated): {Path(mortgage_vault).expanduser() / 'Inbox'}")
     server = ThreadingHTTPServer(("127.0.0.1", PORT), CaptureHandler)
     print(f"Second Brain Portal running at http://127.0.0.1:{PORT}")
     try:

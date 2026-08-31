@@ -41,6 +41,17 @@ consumes the knowledge layer; it is not the canonical data store.
 - No Librarian, n8n, or model calls happen on the save path. Those are
   future asynchronous consumers of the Inbox, not part of capture.
 
+## Mortgage vault segregation
+
+Per `docs/architecture.md`, mortgage/client information stays segregated
+from the general second brain. Set `SECOND_BRAIN_VAULT_PATH_MORTGAGE` in
+`dashboard/.env` to a *separate* vault folder, and Mortgage Call captures
+route there automatically — Quick Note and N-able Call always go to
+`SECOND_BRAIN_VAULT_PATH`. You never choose a destination when capturing;
+the mode decides it. Open both folders as separate vaults in Obsidian. If
+`SECOND_BRAIN_VAULT_PATH_MORTGAGE` is left unset, mortgage captures fall
+back to the general vault.
+
 ## Syncing with Obsidian
 
 There is no sync step to build: point `SECOND_BRAIN_VAULT_PATH` at the same
