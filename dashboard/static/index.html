@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Second Brain</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand">🧠 SECOND BRAIN</span>
+    <span id="status-pill" class="status-pill">checking…</span>
+  </header>
+
+  <main id="app">
+
+    <!-- HOME -->
+    <section id="screen-home" class="screen">
+      <h1>What are you working on?</h1>
+      <div class="mode-grid">
+        <button class="mode-card" data-go="quick">
+          <span class="mode-icon">＋</span>
+          <span>Quick Note</span>
+        </button>
+        <button class="mode-card" data-go="call-start" data-domain="nable">
+          <span class="mode-icon">＋</span>
+          <span>N-able Call</span>
+        </button>
+        <button class="mode-card" data-go="call-start" data-domain="mortgage">
+          <span class="mode-icon">＋</span>
+          <span>Mortgage Call</span>
+        </button>
+      </div>
+      <div id="resume-banner" class="resume-banner hidden"></div>
+    </section>
+
+    <!-- QUICK NOTE -->
+    <section id="screen-quick" class="screen hidden">
+      <div class="screen-header">
+        <button class="link-btn" data-go="home">← Home</button>
+        <span class="screen-title">QUICK NOTE</span>
+      </div>
+      <input id="quick-title" class="title-input" placeholder="Title (optional)" />
+      <textarea id="quick-body" class="capture-area" placeholder="Start typing…" autofocus></textarea>
+      <div class="save-row">
+        <span id="quick-saved-hint" class="saved-hint"></span>
+        <button id="quick-save" class="primary-btn">Save</button>
+      </div>
+    </section>
+
+    <!-- CALL START -->
+    <section id="screen-call-start" class="screen hidden">
+      <div class="screen-header">
+        <button class="link-btn" data-go="home">← Home</button>
+        <span class="screen-title" id="call-start-title">START CALL</span>
+      </div>
+      <label>Account / Client
+        <input id="call-account" class="title-input" placeholder="e.g. ABC Technology" />
+      </label>
+      <label>Contact
+        <input id="call-contact" class="title-input" placeholder="Optional" />
+      </label>
+      <label>Call purpose
+        <input id="call-purpose" class="title-input" placeholder="Optional" />
+      </label>
+      <div class="save-row">
+        <button id="call-start-btn" class="primary-btn">Start Call</button>
+      </div>
+    </section>
+
+    <!-- CALL LIVE -->
+    <section id="screen-call-live" class="screen hidden">
+      <div class="live-header">
+        <span class="live-dot">● LIVE CALL</span>
+        <span id="live-timer">00:00</span>
+      </div>
+      <div id="live-account" class="live-account"></div>
+
+      <div class="quick-capture-row">
+        <input id="live-input" class="quick-input" placeholder="Type a thought, press Enter to add…" />
+      </div>
+      <div id="marker-row" class="marker-row"></div>
+
+      <div class="notes-panel">
+        <div class="notes-label">NOTES</div>
+        <ul id="live-notes" class="notes-list"></ul>
+      </div>
+
+      <div class="save-row">
+        <span id="live-saved-hint" class="saved-hint"></span>
+        <button id="live-end-btn" class="primary-btn">End Call</button>
+      </div>
+    </section>
+
+    <!-- SAVED CONFIRMATION -->
+    <section id="screen-saved" class="screen hidden">
+      <div class="saved-panel">
+        <div class="saved-check">✓</div>
+        <div id="saved-message" class="saved-message">Saved</div>
+        <button class="primary-btn" data-go="home">Done</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
